@@ -1,6 +1,6 @@
 from domain.rezervare import get_str, get_clasa, get_nume, get_pret, get_checkin_facut, creeaza_rezervare
 from logic.crud import create, read, update, delete, trecere_superior, pret_modificat
-from logic.file_logic import save_lista
+from logic.file_logic import save_lista, read_lista
 
 def show_menu():
     print("1.Adaugare/stergere/modificare rezervare dupa un id (CRUD)")
@@ -75,7 +75,8 @@ def handle_crud(lst_rezervari):
         return lst_rezervari
 
 def run_ui(lst_rezervari):
-    filename= ' text.txt'
+    filename = ' text.txt'
+    lst_rezervari=read_lista(filename)
     while True:
         show_menu()
         opt= int(input("Introduceti optiunea: "))
