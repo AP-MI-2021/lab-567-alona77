@@ -5,9 +5,11 @@ from domain.rezervare import get_id, creeaza_rezervare
 
 
 def main():
+    """
     rezervari=[]
-    rezervari=create(rezervari, 1, 'John', 'economy', 120, False)
     rezervari=run_ui(rezervari)
+    """
+    run_ui()
     
 if __name__ == '__main__':
     test_create()
