@@ -52,6 +52,5 @@ def get_checkin_facut(rezervare):
 
 
 def get_str(rezervare):
-    return f'Rezervarea cu id-ul {get_id(rezervare)}, pe numele {get_nume(rezervare)}, \
-    cu clasa {get_clasa(rezervare)}, a carui pret este {get_pret(rezervare)}, iar chekin-ul {get_checkin_facut(rezervare)}'
+    return f'Rezervarea cu id-ul {get_id(rezervare)}, pe numele {get_nume(rezervare)}, cu clasa {get_clasa(rezervare)}, a carui pret este {get_pret(rezervare)}, iar chekin-ul {get_checkin_facut(rezervare)}'
 
