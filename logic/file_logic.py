@@ -7,7 +7,8 @@ def read_lista(filename):
     :return: lista
     """
     with open(filename, 'r') as f:
-        return json.load(f)
+         return json.load(f)
+
 
 
 def save_lista(filename, lst_rezervari):

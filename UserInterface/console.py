@@ -74,9 +74,13 @@ def handle_crud(lst_rezervari):
             print("Optiune invalida")
         return lst_rezervari
 
-def run_ui(lst_rezervari):
-    filename = ' text.txt'
-    lst_rezervari=read_lista(filename)
+def run_ui():
+    filename = ' text.txt' 
+    try:
+        lst_rezervari=read_lista(filename)
+    except Exception:
+        print('Nu s-a putut citi fisireul')
+        lst_rezervari=[]
     while True:
         show_menu()
         opt= int(input("Introduceti optiunea: "))

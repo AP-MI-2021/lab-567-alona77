@@ -1,4 +1,0 @@
-[{1, 'John', 'economy', 120, True}, 
- {2, 'Marie', 'business', 300, False},
- {3, 'Alex', 'economy plus', 200, True},
- {4, 'Anna', 'economy plus', 300, False}]
