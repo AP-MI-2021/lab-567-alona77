@@ -92,8 +92,9 @@ def run_ui():
             lst_rezervari=trecere_superior(lst_rezervari,nume)
             save_lista(filename,lst_rezervari)
         elif opt == 3:
+            procent=int(input("Introdu procent: "))
             lst_rezervari=pret_modificat(lst_rezervari)
-            save_lista(filename,lst_rezervari)
+            save_lista(filename,lst_rezervari, procent)
         elif opt == 4:
             pass
         elif opt == 5:

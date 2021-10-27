@@ -97,7 +97,7 @@ def trecere_superior(lst_rezervari,nume):
         return new_list
 
     
-def pret_modificat(lst_rezervari):
+def pret_modificat(lst_rezervari, procent):
     """
     Modifica pretul in cazul rezervarilor care au checkin True
     :param lst_rezervari: lista rezervare
@@ -105,7 +105,6 @@ def pret_modificat(lst_rezervari):
     """
     gasit=0
     new_list=[]
-    procent=int(input("Introdu procent: "))
     for rezervare in lst_rezervari:
         if get_checkin_facut(rezervare) :
             gasit=1
@@ -118,7 +117,7 @@ def pret_modificat(lst_rezervari):
         else:
             new_list.append(rezervare)
     if gasit == 0:
-        print("Nu exista rezervari care au facut checkin-ul\n")
+        return("Nu exista rezervari care au facut checkin-ul\n")
     else:
         return new_list
 
