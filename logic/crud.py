@@ -11,7 +11,7 @@ def create(lst_rezervari, id_rezervare, nume, clasa, pret, checkin_facut):
     :param checkin_facut: daca s-a facut chechin-ul sau nu (da sau nu)
     :return: lista noua obt prin concatenarea vechii liste (lst_rezervari) si a noii rezervari
     """
-    rezervare= creeaza_rezervare(id_rezervare, nume, clasa, pret, checkin_facut)
+    rezervare=creeaza_rezervare(id_rezervare, nume, clasa, pret, checkin_facut)
     #lst_rezervari.append(rezervare)
     return lst_rezervari+[rezervare]
 
