@@ -88,7 +88,8 @@ def run_ui():
            lst_rezervari= handle_crud(lst_rezervari)
            save_lista(filename, lst_rezervari)
         elif opt == 2:
-            lst_rezervari=trecere_superior(lst_rezervari)
+            nume=input("Dati numele pt care rezervarea se upgradeaza: ")
+            lst_rezervari=trecere_superior(lst_rezervari,nume)
             save_lista(filename,lst_rezervari)
         elif opt == 3:
             lst_rezervari=pret_modificat(lst_rezervari)

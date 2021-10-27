@@ -63,13 +63,12 @@ def delete(lst_rezervari, id_rezervare):
     return new_rezervari
 
 
-def trecere_superior(lst_rezervari):
+def trecere_superior(lst_rezervari,nume):
     """
     Trecerea tuturor claselor la nivel superior de la un nume citit la o clasa superioara
     :param lst_rezervare: lista de rezervari
     :return: lista noua cu clasele upgradated
     """
-    nume=input("Dati numele pt care rezervarea se upgradeaza: ")
     new_list=[]
     exista=0
     for rezervare in lst_rezervari:
@@ -93,7 +92,7 @@ def trecere_superior(lst_rezervari):
             new_list.append(rezervare)
 
     if exista == 0 :
-        print("nu este numele in lista \n")
+        return ("nu este numele in lista \n")
     else:
         return new_list
 
