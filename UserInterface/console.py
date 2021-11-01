@@ -1,4 +1,4 @@
-from domain.rezervare import get_str, get_clasa, get_nume, get_pret, get_checkin_facut, creeaza_rezervare,get_id
+from domain.rezervare import get_str, get_clasa, get_nume, get_pret, get_checkin_facut, creeaza_rezervare
 from logic.crud import create, read, update, delete
 from logic.file_logic import save_lista, read_lista
 from logic.operatii import trecere_superior, pret_modificat
