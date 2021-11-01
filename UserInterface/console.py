@@ -1,7 +1,7 @@
 from domain.rezervare import get_str, get_clasa, get_nume, get_pret, get_checkin_facut, creeaza_rezervare
 from logic.crud import create, read, update, delete
 from logic.file_logic import save_lista, read_lista
-from logic.operatii import trecere_superior, pret_modificat
+from logic.operatii import ordonare_descresc_dupa_pret, trecere_superior, pret_modificat, det_max_fiecare_clasa
 
 
 def show_menu():
@@ -93,6 +93,31 @@ def handle_crud(lst_rezervari):
             print("Optiune invalida")
         return lst_rezervari
 
+def handle_upgradare_clasa(lst_rezervari):
+    try:
+        nume=input("Dati numele pt care rezervarea se upgradeaza: ")
+        nume=nume.capitalize()
+        lst_rezervari=trecere_superior(lst_rezervari,nume)
+        print("Upgradrea clasei pt numele introdus a avut loc cu succes")
+        return lst_rezervari
+    except ValueError as ve:
+        print ("Eroare", ve)
+
+    return lst_rezervari
+
+
+def handle_pret_modificat(lst_rezervari):
+    try:
+        procent=float(input("Introdu procent cu care va fi redus pretul (0-100): "))
+        lst_rezervari=pret_modificat(lst_rezervari, procent)
+        print("Modificare preturilor a avut loc cu succes")
+        return lst_rezervari
+    except ValueError as ve:
+        print("Eroare", ve)
+    
+    return lst_rezervari
+
+
 
 def run_ui():
     filename = ' text.txt' 
@@ -108,18 +133,17 @@ def run_ui():
            lst_rezervari= handle_crud(lst_rezervari)
            save_lista(filename, lst_rezervari)
         elif opt == 2:
-            nume=input("Dati numele pt care rezervarea se upgradeaza: ")
-            nume=nume.capitalize()
-            lst_rezervari=trecere_superior(lst_rezervari,nume)
+            lst_rezervari=handle_upgradare_clasa(lst_rezervari)
             save_lista(filename,lst_rezervari)
         elif opt == 3:
-            procent=float(input("Introdu procent cu care va fi redus pretul (0-100): "))
-            lst_rezervari=pret_modificat(lst_rezervari, procent)
-            save_lista(filename,lst_rezervari, procent)
+            lst_rezervari=handle_pret_modificat(lst_rezervari)
+            save_lista(filename,lst_rezervari)
         elif opt == 4:
-            pass
+            rezultat_nou=det_max_fiecare_clasa(lst_rezervari)
+            print(rezultat_nou)
         elif opt == 5:
-            pass
+            lst_noua=ordonare_descresc_dupa_pret(lst_rezervari)
+            print(f'Lista ordonata descresc este: \n {lst_noua}')
         elif opt == 6:
             pass
         elif opt == 7 :
