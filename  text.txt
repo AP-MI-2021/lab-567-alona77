@@ -1,1 +1,1 @@
-[{"id": 3, "nume": "Marie", "clasa": "business", "pret": 180.0, "checkin_facut": true}, {"id": 1, "nume": "John", "clasa": "economy plus", "pret": 108.0, "checkin_facut": true}, {"id": 2, "nume": "Alex", "clasa": "economy pluss", "pret": 180.0, "checkin_facut": true}]
+[{"id": 3, "nume": "Maria", "clasa": "business", "pret": 180.0, "checkin_facut": true}, {"id": 1, "nume": "John", "clasa": "economy plus", "pret": 108.0, "checkin_facut": true}, {"id": 2, "nume": "Alex", "clasa": "economy pluss", "pret": 180.0, "checkin_facut": true}]

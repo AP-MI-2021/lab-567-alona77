@@ -94,7 +94,7 @@ def run_ui():
             nume=input("Dati numele pt care rezervarea se upgradeaza: ")
             nume=nume.capitalize()
             lst_rezervari=trecere_superior(lst_rezervari,nume)
-            print("operatia a avut loc cu succes")
+            #if lst_rezervari == mesajul: printam mesajul, else:printam mesajul ca operatia a avut loc
             save_lista(filename,lst_rezervari)
         elif opt == 3:
             procent=float(input("Introdu procent cu care va fi redus pretul (0-100): "))
