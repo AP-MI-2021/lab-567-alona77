@@ -9,7 +9,7 @@ def trecere_superior(lst_rezervari,nume):
     new_list=[]
     exista=0
     for rezervare in lst_rezervari:
-        if get_nume(rezervare) == nume :
+        if nume in get_nume(rezervare) :
             exista=1
             if get_clasa(rezervare) == 'economy':
                     id=get_id(rezervare)
@@ -29,7 +29,7 @@ def trecere_superior(lst_rezervari,nume):
             new_list.append(rezervare)
 
     if exista == 0 :
-        return ("nu este numele in lista \n")
+        return ("Numele nu este in lista \n")
     else:
         return new_list
 
@@ -57,3 +57,19 @@ def pret_modificat(lst_rezervari, procent):
         return("Nu exista rezervari care au facut checkin-ul\n")
     else:
         return new_list
+
+
+def det_max_fiecare_clasa(lst_rezervari):
+    """
+    Determina pretul maxim pt fiecare clasa: economy, economy plus, business
+    :param lst_rezervari: lista de rezervari
+    :return: dictionar cu perechile cheia : clasa si valoarea: pretul maxim pt clasa respectiva
+    """
+
+def ordonare_descresc_dupa_pret(lst_rezervari):
+    """
+    Ordoneaza descrescator rezervarile dupa pret
+    :param lst_rezervare: lista de rezervari
+    :return: lista noua in care rezervarile sunt ordonate descresc
+    """
+    lst_noua=[]

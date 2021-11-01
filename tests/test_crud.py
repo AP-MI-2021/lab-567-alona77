@@ -1,5 +1,5 @@
 from domain.rezervare import creeaza_rezervare, get_id
-from logic.crud import create, read, update, delete, trecere_superior
+from logic.crud import create, read, update, delete
 
 def get_data():
     return [creeaza_rezervare(1, 'John', 'economy', 120, True), 
@@ -50,9 +50,4 @@ def test_delete():
     assert rezv_del in lst_rezervari
     assert len(del_lst) == len(lst_rezervari)-1
 
-
-def test_trecere_superior():
-    lst_rezervari=get_data()
-    lst_noua_rezervari=trecere_superior(lst_rezervari)
-    assert len(lst_rezervari) == len(lst_noua_rezervari)
 

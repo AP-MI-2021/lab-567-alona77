@@ -92,10 +92,12 @@ def run_ui():
            save_lista(filename, lst_rezervari)
         elif opt == 2:
             nume=input("Dati numele pt care rezervarea se upgradeaza: ")
+            nume=nume.capitalize()
             lst_rezervari=trecere_superior(lst_rezervari,nume)
+            print("operatia a avut loc cu succes")
             save_lista(filename,lst_rezervari)
         elif opt == 3:
-            procent=int(input("Introdu procent: "))
+            procent=float(input("Introdu procent cu care va fi redus pretul (0-100): "))
             lst_rezervari=pret_modificat(lst_rezervari)
             save_lista(filename,lst_rezervari, procent)
         elif opt == 4:
