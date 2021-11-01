@@ -24,6 +24,16 @@ def test_create():
     """    
     assert rezv_new in new_rezervari
 
+    #se testeaza daca se lanseaza eroarea pt id-ul care exista deja
+    param2=(1,'Kylle', 'business', 150, True)
+    try:
+        _ =create(new_rezervari, *param2)
+        assert False
+    except ValueError:
+        assert True
+    
+
+
 
 def test_read():
     lst_rezervari=get_data()

@@ -16,12 +16,17 @@ def show_menu():
 
 
 def handle_add(lst_rezervari):
-    id_rezervare=int(input("Dati id-ul noii rezervari: "))
-    nume=input("Dati noul nume: ")
-    clasa=input("Dati clasa noii rezervari: ")
-    pret=float(input("Dati pretul noii rezervari: "))
-    checkin_facut=bool(input("Dati True daca checkin-ul a fost facut, resp False in caz contrar: \n"))
-    return create(lst_rezervari, id_rezervare, nume, clasa, pret, checkin_facut)
+    try:
+        id_rezervare=int(input("Dati id-ul noii rezervari: "))
+        nume=input("Dati noul nume: ")
+        clasa=input("Dati clasa noii rezervari: ")
+        pret=float(input("Dati pretul noii rezervari: "))
+        checkin_facut=bool(input("Dati True daca checkin-ul a fost facut, resp False in caz contrar: \n"))
+        return create(lst_rezervari, id_rezervare, nume, clasa, pret, checkin_facut)
+    except ValueError as ve:
+        print("Eroare")
+
+    return lst_rezervari
 
 
 def show_details(lst_rezervari):
@@ -34,18 +39,30 @@ def show_details(lst_rezervari):
 
 
 def handle_modify(lst_rezervari):
-    id_rezervare=int(input("Dati id-ul rezervari care se modifica: "))
-    nume=input("Dati noul nume al rezervarii: ")
-    clasa=input("Dati noua clasa a rezervari: ")
-    pret=float(input("Dati noul pretul al rezervari: "))
-    checkin_facut=bool(input("Dati True daca checkin-ul a fost facut, resp False in caz contrar: \n"))
-    return update(lst_rezervari, creeaza_rezervare(id_rezervare,nume,clasa,pret, checkin_facut))
+    try:
+        id_rezervare=int(input("Dati id-ul rezervari care se modifica: "))
+        nume=input("Dati noul nume al rezervarii: ")
+        clasa=input("Dati noua clasa a rezervari: ")
+        pret=float(input("Dati noul pretul al rezervari: "))
+        checkin_facut=bool(input("Dati True daca checkin-ul a fost facut, resp False in caz contrar: \n"))
+        print("Modificarea a avut loc cu succes")
+        return update(lst_rezervari, creeaza_rezervare(id_rezervare,nume,clasa,pret, checkin_facut))
+    except ValueError :
+        print("Eroare")
+
+    return lst_rezervari
 
 
 def handle_delete(lst_rezervari):
-    id_rezervare=int(input("Dati id-ul rezervarii care trebuie stearsa"))
-    lst_del=delete(lst_rezervari, id_rezervare)
-    return lst_del
+    try:
+        id_rezervare=int(input("Dati id-ul rezervarii care trebuie stearsa"))
+        lst_del=delete(lst_rezervari, id_rezervare)
+        print("Stergerea a avut loc cu succes")
+        return lst_del
+    except ValueError:
+        print("Eroare")
+    
+    return lst_rezervari
 
 
 def handle_crud(lst_rezervari):
@@ -94,11 +111,10 @@ def run_ui():
             nume=input("Dati numele pt care rezervarea se upgradeaza: ")
             nume=nume.capitalize()
             lst_rezervari=trecere_superior(lst_rezervari,nume)
-            #if lst_rezervari == mesajul: printam mesajul, else:printam mesajul ca operatia a avut loc
             save_lista(filename,lst_rezervari)
         elif opt == 3:
             procent=float(input("Introdu procent cu care va fi redus pretul (0-100): "))
-            lst_rezervari=pret_modificat(lst_rezervari)
+            lst_rezervari=pret_modificat(lst_rezervari, procent)
             save_lista(filename,lst_rezervari, procent)
         elif opt == 4:
             pass
