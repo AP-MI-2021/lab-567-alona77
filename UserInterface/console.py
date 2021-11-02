@@ -6,7 +6,7 @@ from logic.operatii import ordonare_descresc_dupa_pret, trecere_superior, pret_m
 
 def show_menu():
     print("1.Adaugare/stergere/modificare rezervare dupa un id (CRUD)")
-    print("2.Upgradarea rezervarilor dupa un nume citit")
+    print("2.Upgradarea claselor rezervarilor dupa un nume citit")
     print("3.Ieftinirea rezervarilor cu checkin-ul facut cu un procent p")
     print("4.Determinarea pretului maxim pt fiecare clasa")
     print("5.Ordonarea descresc rezervarilor dupa pret")
@@ -24,7 +24,7 @@ def handle_add(lst_rezervari):
         checkin_facut=bool(input("Dati True daca checkin-ul a fost facut, resp False in caz contrar: \n"))
         return create(lst_rezervari, id_rezervare, nume, clasa, pret, checkin_facut)
     except ValueError as ve:
-        print("Eroare")
+        print("Eroare", ve)
 
     return lst_rezervari
 
@@ -47,8 +47,8 @@ def handle_modify(lst_rezervari):
         checkin_facut=bool(input("Dati True daca checkin-ul a fost facut, resp False in caz contrar: \n"))
         print("Modificarea a avut loc cu succes")
         return update(lst_rezervari, creeaza_rezervare(id_rezervare,nume,clasa,pret, checkin_facut))
-    except ValueError :
-        print("Eroare")
+    except ValueError as ve :
+        print("Eroare", ve)
 
     return lst_rezervari
 

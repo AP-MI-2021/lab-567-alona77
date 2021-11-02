@@ -40,21 +40,11 @@ def test_pret_max():
     rezultat=det_max_fiecare_clasa(lst_rezervari)
     assert rezultat == {'economy':120, 'economy plus':200, 'business':300}
 
-"""
 def test_ordonare_descresc_dupa_pret():
     lst_rezervari=get_data()
     lst_noua=ordonare_descresc_dupa_pret(lst_rezervari)
-    
-    for rezervare in lst_noua:
-        if get_pret(rezervare) == 300:
-            rezervare_trei=rezervare
-        elif get_pret(rezervare) == 200:
-            rezervare_doi=rezervare
-        else:
-            rezervare_unu=rezervare
-    
-    
-    assert get_pret(lst_noua[0]) == 120
-    #assert rezervare_doi == lst_noua[1]
-    #assert rezervare_trei == lst_noua[2]
-"""
+        
+    assert get_pret(lst_noua[0]) == 300
+    assert get_pret(lst_noua[1]) == 200
+    assert get_pret(lst_noua[2]) == 120
+   
