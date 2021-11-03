@@ -20,10 +20,11 @@ def alt_main():
         lst_rezervari=[]
     
     while True:
-        print("Intr-o linie de comanda scrie comenzile care doresti indeplinite, separate prin ';'")
+        print("Intr-o linie de comanda scrie comenzile care doresti indeplinite, separate prin ';'la final scriind comanda exit")
         print("1.Pt afisarea tuturor vei scrie in linia de comanda : showall")
         print("2.Pt ordonarea lor descresc vei scrie in linia de comanda : ordonare ")
         print("3.Pt a sterge o rezervare vei scrie linia de comanda : delete,id ")
+        print("4.Pt iesirea din meniu introduceti: exit")
 
         
 
@@ -40,6 +41,8 @@ def alt_main():
         if "ordonare" in lista_comenzi:
             lst_noua=ordonare_descresc_dupa_pret(lst_rezervari)
             print(f'Lista ordonata descresc este: \n {lst_noua}')
+        if "exit" in lista_comenzi:
+            break
             
 
 
