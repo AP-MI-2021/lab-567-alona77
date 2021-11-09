@@ -90,3 +90,18 @@ def ordonare_descresc_dupa_pret(lst_rezervari):
     lst_noua=sorted(lst_rezervari, key= get_pret, reverse=True)
     return lst_noua
 
+def suma_pret_nume(lst_rezervari):
+    """
+    Se da pentru fiecare nume suma totala pe care o are de platit pentru rezervarile de pe numele lor
+    :param lst_rezervari: lista de rezervari
+    :return: dictionar cu perechile cheia:numele persoanei si valorea:costul total al rezervarilor
+    """
+    rezultat={}
+    for rezervare in lst_rezervari:
+        pret=get_pret(rezervare)
+        nume=get_nume(rezervare)
+        if nume not in rezultat:
+            rezultat[nume]=pret
+        else:
+            rezultat[nume]+=pret
+    return rezultat

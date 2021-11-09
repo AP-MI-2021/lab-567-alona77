@@ -1,1 +1,1 @@
-[[1, "John", "economy", 120.0, true], [3, "Fanny", "business", 270.0, true], [2, "Connie", "economy plus", 170.0, false], [4, "Alex", "economy", 180.0, true]]
+[[1, "John", "economy", 120.0, true], [3, "Fanny", "business", 270.0, true], [2, "Connie", "economy plus", 170.0, false], [4, "Alex", "economy", 180.0, true], [6, "Jasmine", "economy", 129.0, true], [5, "Josh", "economy", 150.0, true], [8, "Alexa", "business", 400.0, true]]

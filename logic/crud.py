@@ -1,6 +1,6 @@
 from domain.rezervare import creeaza_rezervare, get_id
 
-def create(lst_rezervari, id_rezervare, nume, clasa, pret, checkin_facut):
+def create(lst_rezervari, id_rezervare, nume, clasa, pret, checkin_facut, undo_lst: list, redo_lst: list):
     """
     Crearea unei noi rezervari
     :param lst_rezervare: lista de rezervari
@@ -9,13 +9,18 @@ def create(lst_rezervari, id_rezervare, nume, clasa, pret, checkin_facut):
     :param clasa: tipul clasei (economy, economy plus, business)
     :param pret: pretul rezervarii
     :param checkin_facut: daca s-a facut chechin-ul sau nu (da sau nu)
+    :param undo_lst:lista inainte de vreo modificare
+    :param redo_lst:
     :return: lista noua obt prin concatenarea vechii liste (lst_rezervari) si a noii rezervari
     """
     if read(lst_rezervari, id_rezervare) is not None:
         raise ValueError ("Exista deja rezervare cu acest id")
 
     rezervare=creeaza_rezervare(id_rezervare, nume, clasa, pret, checkin_facut)
-    #lst_rezervari.append(rezervare)
+
+    undo_lst.append(lst_rezervari)
+    redo_lst.clear()
+
     return lst_rezervari+[rezervare]
 
 
@@ -39,11 +44,13 @@ def read(lst_rezervari , id_rezervare: int=None):
     return None
 
 
-def update(lst_rezervari, new_rezervare):
+def update(lst_rezervari, new_rezervare, undo_lst, redo_lst):
     """
     Actualizeaza/ modifica in lista de rezervari o rezervare 
     :param lst_rezervari: lista de rezervari
     :param new_rezervare: rezervarea care trebuie modificata
+    :param undo_lst: lista asupra careia are efect comanda "Undo"
+    :param redo_lst: lista asupra careia actioneaza comanda "redo"
     :return: lista noua cu rezervarea modificata
     """
     if read(lst_rezervari, get_id(new_rezervare)) is None:
@@ -55,14 +62,20 @@ def update(lst_rezervari, new_rezervare):
             new_rezervari.append(rezervare)
         else:
             new_rezervari.append(new_rezervare)
+
+    undo_lst.append(lst_rezervari)
+    redo_lst.clear()
+
     return new_rezervari
 
 
-def delete(lst_rezervari, id_rezervare):
+def delete(lst_rezervari, id_rezervare, undo_lst, redo_lst):
     """
     Stergerea unei rezervari dupa un id dat
     :param lst_rezervari: lista de rezervari
     :param is_rezervare: id ul rezervarii care trebuie sterse
+    :param undo_lst: lista asupra careia are efect comanda "Undo"
+    :param redo_lst: lista asupra careia actioneaza comanda "redo"
     :return: lista fara rezervarea cu id-ul dat
     """
     if read(lst_rezervari, id_rezervare) is None:
@@ -72,6 +85,9 @@ def delete(lst_rezervari, id_rezervare):
     for rezervari in lst_rezervari:
         if get_id(rezervari)!=id_rezervare:
             new_rezervari.append(rezervari)
+
+    undo_lst.append(lst_rezervari)
+    redo_lst.clear()
     return new_rezervari
 
 

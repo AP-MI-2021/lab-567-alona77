@@ -9,8 +9,8 @@ def get_data():
 
 def test_create():
     lt_rezervari= get_data()
-    params = (4, 'Tim', 'economy', 150, False)
-    rezv_new = creeaza_rezervare(*params)
+    params = (4, 'Tim', 'economy', 150, False, [], [])
+    rezv_new = creeaza_rezervare(*params[:-2])
     new_rezervari=create(lt_rezervari, *params)
    # assert new_rezervari[-1] == rezv_new 
     assert len(new_rezervari) == len(lt_rezervari) +1
@@ -25,7 +25,7 @@ def test_create():
     assert rezv_new in new_rezervari
 
     #se testeaza daca se lanseaza eroarea pt id-ul care exista deja
-    param2=(1,'Kylle', 'business', 150, True)
+    param2=(1,'Kylle', 'business', 150, True, [], [])
     try:
         _ =create(new_rezervari, *param2)
         assert False
@@ -45,7 +45,7 @@ def test_read():
 def test_update():
     lst_rezervari=get_data()
     rezv_updated=creeaza_rezervare(1,'nou nume', 'economy', 120, True)
-    up_rezvervari=update(lst_rezervari,rezv_updated)
+    up_rezvervari=update(lst_rezervari,rezv_updated, [], [])
     assert rezv_updated in up_rezvervari
     assert rezv_updated not in lst_rezervari
     assert len(up_rezvervari) == len(lst_rezervari)
@@ -55,7 +55,7 @@ def test_delete():
     lst_rezervari=get_data()
     id_del=1
     rezv_del=read(lst_rezervari, id_del)
-    del_lst=delete(lst_rezervari, id_del)
+    del_lst=delete(lst_rezervari, id_del, [], [])
     assert rezv_del not in del_lst
     assert rezv_del in lst_rezervari
     assert len(del_lst) == len(lst_rezervari)-1

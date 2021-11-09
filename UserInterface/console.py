@@ -1,7 +1,8 @@
 from domain.rezervare import get_str, get_clasa, get_nume, get_pret, get_checkin_facut, creeaza_rezervare
 from logic.crud import create, read, update, delete
 from logic.file_logic import save_lista, read_lista
-from logic.operatii import ordonare_descresc_dupa_pret, trecere_superior, pret_modificat, det_max_fiecare_clasa
+from logic.operatii import ordonare_descresc_dupa_pret, trecere_superior, pret_modificat, det_max_fiecare_clasa, suma_pret_nume
+from logic.undo_redo import do_redo, do_undo
 
 
 def show_menu():
@@ -12,17 +13,18 @@ def show_menu():
     print("5.Ordonarea descresc rezervarilor dupa pret")
     print("6.Afisarea sumelor preturilor pt fiecare nume")
     print("7.Undo")
-    print("8.Iesire meniu \n")
+    print("8.Redo")
+    print("9.Iesire meniu \n")
 
 
-def handle_add(lst_rezervari):
+def handle_add(lst_rezervari, undo_lst, redo_lst):
     try:
         id_rezervare=int(input("Dati id-ul noii rezervari: "))
         nume=input("Dati noul nume: ")
         clasa=input("Dati clasa noii rezervari: ")
         pret=float(input("Dati pretul noii rezervari: "))
         checkin_facut=bool(input("Dati True daca checkin-ul a fost facut, resp False in caz contrar: \n"))
-        return create(lst_rezervari, id_rezervare, nume, clasa, pret, checkin_facut)
+        return create(lst_rezervari, id_rezervare, nume, clasa, pret, checkin_facut, undo_lst, redo_lst)
     except ValueError as ve:
         print("Eroare", ve)
 
@@ -38,7 +40,7 @@ def show_details(lst_rezervari):
     print(f'Checkin-ul este {get_checkin_facut(rezervare)}\n')
 
 
-def handle_modify(lst_rezervari):
+def handle_modify(lst_rezervari, undo_lst, redo_lst):
     try:
         id_rezervare=int(input("Dati id-ul rezervari care se modifica: "))
         nume=input("Dati noul nume al rezervarii: ")
@@ -46,17 +48,17 @@ def handle_modify(lst_rezervari):
         pret=float(input("Dati noul pretul al rezervari: "))
         checkin_facut=bool(input("Dati True daca checkin-ul a fost facut, resp False in caz contrar: \n"))
         print("Modificarea a avut loc cu succes")
-        return update(lst_rezervari, creeaza_rezervare(id_rezervare,nume,clasa,pret, checkin_facut))
+        return update(lst_rezervari, creeaza_rezervare(id_rezervare,nume,clasa,pret, checkin_facut), undo_lst, redo_lst)
     except ValueError as ve :
         print("Eroare", ve)
 
     return lst_rezervari
 
 
-def handle_delete(lst_rezervari):
+def handle_delete(lst_rezervari, undo_lst, redo_lst):
     try:
         id_rezervare=int(input("Dati id-ul rezervarii care trebuie stearsa"))
-        lst_del=delete(lst_rezervari, id_rezervare)
+        lst_del=delete(lst_rezervari, id_rezervare, undo_lst, redo_lst)
         print("Stergerea a avut loc cu succes")
         return lst_del
     except ValueError:
@@ -65,7 +67,7 @@ def handle_delete(lst_rezervari):
     return lst_rezervari
 
 
-def handle_crud(lst_rezervari):
+def handle_crud(lst_rezervari, undo_lst: list, redo_lst:list):
     while True:
         print("1.Adaugare rezervare dupa id")
         print("2.Stergere rezervare dupa id")
@@ -77,11 +79,11 @@ def handle_crud(lst_rezervari):
 
         opt=int(input("Alegeti optiunea: "))
         if opt == 1:
-            lst_rezervari=handle_add(lst_rezervari) 
+            lst_rezervari=handle_add(lst_rezervari, undo_lst, redo_lst) 
         elif opt == 2:
-            lst_rezervari=handle_delete(lst_rezervari)
+            lst_rezervari=handle_delete(lst_rezervari, undo_lst, redo_lst)
         elif opt == 3:
-            lst_rezervari=handle_modify(lst_rezervari)
+            lst_rezervari=handle_modify(lst_rezervari, undo_lst, redo_lst)
         elif opt == 4:
             for rezervare in lst_rezervari:
                 print(get_str(rezervare))
@@ -117,9 +119,22 @@ def handle_pret_modificat(lst_rezervari):
     
     return lst_rezervari
 
+def handle_undo(lst_rezervari, undo_lst, redo_lst):
+    undo_result = do_undo(undo_lst, redo_lst, lst_rezervari)
+    if undo_result:
+        return undo_result
+    return lst_rezervari
+
+def handle_redo(lst_rezervari, undo_lst, redo_lst):
+    redo_result = do_redo(undo_lst, redo_lst, lst_rezervari)
+    if redo_result:
+        return redo_result
+    return lst_rezervari
 
 
 def run_ui():
+    undo_lst=[]
+    redo_lst=[]
     filename = ' text.txt' 
     try:
         lst_rezervari=read_lista(filename)
@@ -130,7 +145,7 @@ def run_ui():
         show_menu()
         opt= int(input("Introduceti optiunea: "))
         if opt == 1:
-           lst_rezervari= handle_crud(lst_rezervari)
+           lst_rezervari= handle_crud(lst_rezervari, undo_lst, redo_lst)
            save_lista(filename, lst_rezervari)
         elif opt == 2:
             lst_rezervari=handle_upgradare_clasa(lst_rezervari)
@@ -145,10 +160,13 @@ def run_ui():
             lst_noua=ordonare_descresc_dupa_pret(lst_rezervari)
             print(f'Lista ordonata descresc este: \n {lst_noua}')
         elif opt == 6:
-            pass
+            rezultat_nou=suma_pret_nume(lst_rezervari)
+            print(rezultat_nou)
         elif opt == 7 :
-            pass
+            lst_rezervari=handle_undo(lst_rezervari, undo_lst, redo_lst)
         elif opt == 8:
+            lst_rezervari=handle_redo(lst_rezervari, undo_lst, redo_lst)
+        elif opt == 9:
             break
 
         else:
