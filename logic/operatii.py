@@ -1,6 +1,6 @@
 from domain.rezervare import get_checkin_facut, get_clasa, get_id, get_nume, get_pret, get_str,creeaza_rezervare
 
-def trecere_superior(lst_rezervari, nume: str):
+def trecere_superior(lst_rezervari, nume: str, undo_lst:list, redo_lst:list):
     """
     Trecerea tuturor claselor la nivel superior de la un nume citit la o clasa superioara
     :param lst_rezervare: lista de rezervari
@@ -31,13 +31,17 @@ def trecere_superior(lst_rezervari, nume: str):
         else:
             new_list.append(rezervare)
 
+
+    undo_lst.append(lst_rezervari)
+    redo_lst.clear()
+
     if exista == 0 :
         return ("Numele nu este in lista \n")
     else:
         return new_list
 
     
-def pret_modificat(lst_rezervari, procent):
+def pret_modificat(lst_rezervari, procent, undo_lst:list, redo_lst:list):
     """
     Modifica pretul in cazul rezervarilor care au checkin True
     :param lst_rezervari: lista rezervare
@@ -59,6 +63,10 @@ def pret_modificat(lst_rezervari, procent):
             new_list.append(val)
         else:
             new_list.append(rezervare)
+
+    undo_lst.append(lst_rezervari)
+    redo_lst.clear()
+
     if gasit == 0:
         return("Nu exista rezervari care au facut checkin-ul\n")
     else:

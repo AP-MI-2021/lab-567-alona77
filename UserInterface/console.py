@@ -95,11 +95,11 @@ def handle_crud(lst_rezervari, undo_lst: list, redo_lst:list):
             print("Optiune invalida")
         return lst_rezervari
 
-def handle_upgradare_clasa(lst_rezervari):
+def handle_upgradare_clasa(lst_rezervari, undo_lst, redo_lst):
     try:
         nume=input("Dati numele pt care rezervarea se upgradeaza: ")
         nume=nume.capitalize()
-        lst_rezervari=trecere_superior(lst_rezervari,nume)
+        lst_rezervari=trecere_superior(lst_rezervari,nume, undo_lst, redo_lst)
         print("Upgradrea clasei pt numele introdus a avut loc cu succes")
         return lst_rezervari
     except ValueError as ve:
@@ -108,10 +108,10 @@ def handle_upgradare_clasa(lst_rezervari):
     return lst_rezervari
 
 
-def handle_pret_modificat(lst_rezervari):
+def handle_pret_modificat(lst_rezervari, undo_lst, redo_lst):
     try:
         procent=float(input("Introdu procent cu care va fi redus pretul (0-100): "))
-        lst_rezervari=pret_modificat(lst_rezervari, procent)
+        lst_rezervari=pret_modificat(lst_rezervari, procent, undo_lst, redo_lst)
         print("Modificare preturilor a avut loc cu succes")
         return lst_rezervari
     except ValueError as ve:
@@ -148,10 +148,10 @@ def run_ui():
            lst_rezervari= handle_crud(lst_rezervari, undo_lst, redo_lst)
            save_lista(filename, lst_rezervari)
         elif opt == 2:
-            lst_rezervari=handle_upgradare_clasa(lst_rezervari)
+            lst_rezervari=handle_upgradare_clasa(lst_rezervari, undo_lst, redo_lst)
             save_lista(filename,lst_rezervari)
         elif opt == 3:
-            lst_rezervari=handle_pret_modificat(lst_rezervari)
+            lst_rezervari=handle_pret_modificat(lst_rezervari, undo_lst, redo_lst)
             save_lista(filename,lst_rezervari)
         elif opt == 4:
             rezultat_nou=det_max_fiecare_clasa(lst_rezervari)
